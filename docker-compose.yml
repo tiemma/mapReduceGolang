@@ -1,0 +1,46 @@
+version: "3"
+services:
+  redis:
+    image: redis
+    logging:
+      driver: none
+    ports:
+      - 6379:6379
+
+  app_1:
+    build: .
+    volumes:
+      - $PWD/fixtures:/app/fixtures
+    environment:
+      WORKER: 1
+      REDIS_HOST: "redis"
+
+  app_2:
+    build: .
+    volumes:
+      - $PWD/fixtures:/app/fixtures
+    environment:
+      WORKER: 2
+      REDIS_HOST: "redis"
+
+
+  app_3:
+    build: .
+    image: map_reduce
+    volumes:
+      - $PWD/fixtures:/app/fixtures
+    environment:
+      WORKER: 3
+      REDIS_HOST: "redis"
+
+  app_master:
+    build: .
+    volumes:
+      - $PWD/fixtures:/app/fixtures
+    environment:
+      MASTER: "master"
+      REDIS_HOST: "redis"
+      WORKER: 1
+    # Demo the efficacy of master restarts
+    # In a later stage, we'd showcase leader election
+    restart: "on-failure"
