@@ -5,6 +5,8 @@ This demonstrates how map reduce can be run for a
 - Asynchronous with channels
 -  Asynchronous with an external queue and worker instances on containers
 
+Live stream recording can be found here: https://t.co/O7IMYcxRgO
+
 The example task is word count, a popular one which showcases the efficacy of distributed computing in a simple sense.
 
 ## Methods
